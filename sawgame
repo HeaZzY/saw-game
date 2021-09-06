@@ -1,0 +1,142 @@
+from tkinter import *
+from PIL import ImageTk, Image
+import os
+import time
+from tkinter import messagebox
+import requests
+def refresh(self):
+    self.destroy()
+    self.__init__()
+
+
+url = 'https://cdn.discordapp.com/attachments/815648156309782579/884505322658615337/Jigsaw_i_want_to_play_the_game.mp3'
+r = requests.get(url, allow_redirects=True)
+open('sawgamesong.mp3','wb').write(r.content)
+os.startfile('sawgamesong.mp3')
+
+background1 = 'https://wallpapercave.com/wp/wp2624316.jpg'
+background2 = 'https://images.alphacoders.com/650/thumb-1920-650628.jpg'
+
+r = requests.get(background1, allow_redirects=True)
+open('sawback1.jpg','wb').write(r.content)
+
+r = requests.get(background2, allow_redirects=True)
+open('sawback2.jpg','wb').write(r.content)
+
+
+
+
+
+
+
+
+boucle = 0
+#def to know the rule and start
+def gamerule():
+    global boucle
+    boucle = 1
+    root.destroy()
+    while boucle == 1:
+        global window_ok
+        window_ok = Tk()
+        canvas = Canvas(window_ok, width=1920, height=1080, background='black')
+        txtruleok = canvas.create_text(500, 60, text="ur gonna play it even you don't want !", font="Arial 40 italic", fill="white")
+        txtruleok = canvas.create_text(850, 300,text="there is a rules push a button to know it !", font="Arial 40 italic", fill="white")
+        buttonfrrule1 = Button(window_ok,font=('Helvetica 15 bold'), text="French Rules", bg='white', fg='black', width=50 , height=10,command=frenchrules)
+        buttonangrule1 = Button(window_ok, font=('Helvetica 15 bold') ,text="english Rules" , bg='white', fg='black', width=50, height=10,command=angrules)
+        buttonfrrule1_canvas = canvas.create_window(10, 600,
+                                            anchor="nw",
+                                            window=buttonfrrule1)
+        buttonangrule1_canvas= canvas.create_window(650, 600,
+                                            anchor="nw",
+                                            window=buttonangrule1)
+        canvas.pack()
+        window_ok.mainloop()
+
+
+
+
+#french rules
+def frenchrules():
+    global boucle
+    boucle = 2
+    global window_ok
+    window_ok.destroy()
+    while boucle == 2:
+        frenchwindow = Tk()
+        canfr = Canvas(frenchwindow, width=1920, height=1080, )
+        canfr.grid(row=2, column=3)
+        img = ImageTk.PhotoImage(Image.open("sawback2.jpg"))  # PIL solution
+        canfr.create_image(20, 20, anchor=NW, image=img)
+        canfr.create_text(500,100 , text="il y'as un timer chaque 20 secondes et 1 de vos fichiers seront supprimé " , fill="#6960EC", font=('Helvetica 15 bold',20))
+        canfr.create_text(500, 300, text="20 minutes et ton windows marchera plus donc dépeche toi ",fill="#6960EC", font=('Helvetica 15 bold', 20))
+        canfr.create_text(500, 500, text="20 questions 1 mauvaises réponse et 5 fichiers random seront supprimer",fill="#6960EC",font=('Helvetica 15 bold', 20))
+        canfr.create_text(500, 700, text="Aussi depuis que tu lis les régles le timer est lancer donc depeche toi de jouer",fill="#6960EC",font=('Helvetica 15 bold', 20))
+        buttongame = Button(frenchwindow, font=('Helvetica 15 bold',), text="Play", bg='black', fg='white', width=50,height=10, )
+        buttongamecanv = canfr.create_window(1300, 700,
+                                               anchor="nw",
+                                               window=buttongame)
+        canfr.pack()
+        frenchwindow.mainloop()
+
+
+
+
+
+
+
+#anglish rules
+def angrules():
+    global boucle
+    boucle = 2
+    global window_ok
+    window_ok.destroy()
+    while boucle == 2:
+        angwindow = Tk()
+        canvang = Canvas(angwindow, width=1920, height=1080, )
+        canvang.grid(row=2, column=3)
+        img = ImageTk.PhotoImage(Image.open("sawback2.jpg"))  # PIL solution
+        canvang.create_image(20, 20, anchor=NW, image=img)
+        canvang.create_text(500, 100, text="First there is a timer all 20 seconds = 1 random file deleted   ", fill=
+        "#6960EC", font=('Helvetica 15 bold',20))
+        canvang.create_text(500, 300, text="that file can be your cat or an essential windows file hope on ur luck  ", fill=
+        "#6960EC", font=('Helvetica 15 bold',20))
+        canvang.create_text(500, 500, text="20 minutes make ur windows die so speed hahaha ! ", fill=
+        "#6960EC", font=('Helvetica 15 bold',20))
+        canvang.create_text(500, 700, text="There is 20 question and 1 bad answer = 5 random files deleted", fill=
+        "#6960EC", font=('Helvetica 15 bold',20))
+        canvang.create_text(500, 900, text="from the moment you click on the rules the timer is started", fill=
+        "#6960EC", font=('Helvetica 15 bold', 20))
+        buttongame = Button(angwindow, font=('Helvetica 15 bold',), text="Play", bg='black', fg='white',width=50, height=10,)
+        buttongamecanv = canvang.create_window(1300, 700,
+                                            anchor="nw",
+                                            window=buttongame)
+        canvang.pack()
+        angwindow.mainloop()
+
+
+
+
+
+while boucle == 0:
+    root = Tk()
+    canv = Canvas(root, width=1920, height=1080, )
+    canv.grid(row=2, column=3)
+
+    img = ImageTk.PhotoImage(Image.open("sawback1.jpg"))  # PIL solution
+    canv.create_image(20, 20, anchor=NW, image=img)
+#create the buttons
+    button1 = Button(root,font=('Helvetica 15 bold'), text="OK i want ! and i know the risk !", bg='black', fg='white', width=50 , height=10,command=gamerule)
+
+    button2 = Button(root, font=('Helvetica 15 bold') ,text="No please ! i dont want !" , bg='black', fg='white', width=50, height=10 , command=gamerule )
+#display buttons
+    button1_canvas = canv.create_window(300, 475,
+                                           anchor="nw",
+                                           window=button1)
+
+    button2_canvas = canv.create_window(1100, 475,
+                                           anchor="nw",
+                                           window=button2)
+    canv.create_text(990, 250, text="Do you want play a game ?", fill=
+    "red", font=('Helvetica 15 bold'))
+    root.mainloop()
