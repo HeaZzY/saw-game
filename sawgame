@@ -4,15 +4,81 @@ import os
 import time
 from tkinter import messagebox
 import requests
-def refresh(self):
-    self.destroy()
-    self.__init__()
+from pygame import mixer
+import time
+from multiprocessing import Process
+
+global azert
+global minute
+global second
+minute = int(10)
+second = int(0)
+azert = 1
+
+
+def question1() :
+    global app1
+    global angwindow
+    boucle = 3
+    angwindow.destroy()
+    while boucle == 3:
+        app1 = Tk()
+        canvapp1 = Canvas(app1, width=1920, height=1080)
+        canvapp1.grid(row=2, column=3)
+        img = ImageTk.PhotoImage(Image.open("sawback1.jpg"))  # PIL solution
+        canvapp1.create_image(20, 20, anchor=NW, image=img)
+        canvapp1.create_rectangle(
+            30, 30, 900, 1000,
+            outline="black",
+            fill="white")
+        canvapp1.pack()
+        app1.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def coontdown():
+    global azert
+    global minute
+    global second
+    while azert == 1:
+        temp = minute * 60 + second
+        second = second - 1
+        time.sleep(1)
+        if second < 0:
+            second = 59
+            minute = minute - 1
+        else:
+            pass
+        print(minute , second)
+        if temp == 0:
+            messagebox.showinfo("Time Countdown", "Finish sorry ... bye ")
+            azert = 0
+            minute = 0
+            second = 0
+
+        else:
+            pass
+
+
+
+
 
 
 url = 'https://cdn.discordapp.com/attachments/815648156309782579/884505322658615337/Jigsaw_i_want_to_play_the_game.mp3'
 r = requests.get(url, allow_redirects=True)
 open('sawgamesong.mp3','wb').write(r.content)
-os.startfile('sawgamesong.mp3')
 
 background1 = 'https://wallpapercave.com/wp/wp2624316.jpg'
 background2 = 'https://images.alphacoders.com/650/thumb-1920-650628.jpg'
@@ -24,7 +90,16 @@ r = requests.get(background2, allow_redirects=True)
 open('sawback2.jpg','wb').write(r.content)
 
 
-
+def sawsong():
+    azerty = 0
+    mixer.init()
+    mixer.music.load("sawgamesong.mp3") # Music file can only be MP3
+    mixer.music.play()
+# Then start a infinite loop
+    while azerty != 33:
+        print("")
+        time.sleep(1)
+        azerty = azerty + 1
 
 
 
@@ -33,9 +108,10 @@ open('sawback2.jpg','wb').write(r.content)
 boucle = 0
 #def to know the rule and start
 def gamerule():
+    global root2
     global boucle
     boucle = 1
-    root.destroy()
+    root2.destroy()
     while boucle == 1:
         global window_ok
         window_ok = Tk()
@@ -56,8 +132,15 @@ def gamerule():
 
 
 
+
+
+
+
+
+
 #french rules
 def frenchrules():
+    global frenchwindow
     global boucle
     boucle = 2
     global window_ok
@@ -66,13 +149,11 @@ def frenchrules():
         frenchwindow = Tk()
         canfr = Canvas(frenchwindow, width=1920, height=1080, )
         canfr.grid(row=2, column=3)
-        img = ImageTk.PhotoImage(Image.open("sawback2.jpg"))  # PIL solution
-        canfr.create_image(20, 20, anchor=NW, image=img)
-        canfr.create_text(500,100 , text="il y'as un timer chaque 20 secondes et 1 de vos fichiers seront supprimé " , fill="#6960EC", font=('Helvetica 15 bold',20))
-        canfr.create_text(500, 300, text="20 minutes et ton windows marchera plus donc dépeche toi ",fill="#6960EC", font=('Helvetica 15 bold', 20))
-        canfr.create_text(500, 500, text="20 questions 1 mauvaises réponse et 5 fichiers random seront supprimer",fill="#6960EC",font=('Helvetica 15 bold', 20))
-        canfr.create_text(500, 700, text="Aussi depuis que tu lis les régles le timer est lancer donc depeche toi de jouer",fill="#6960EC",font=('Helvetica 15 bold', 20))
-        buttongame = Button(frenchwindow, font=('Helvetica 15 bold',), text="Play", bg='black', fg='white', width=50,height=10, )
+        img1 = ImageTk.PhotoImage(Image.open("sawback2.jpg"))  # PIL solution
+        canfr.create_image(20, 20, anchor=NW, image=img1)
+        canfr.create_text(800, 300, text="Il y'as un timer de 10 min qui as commencer depuis que tu joues il est de 10 min donc depeche toi si il arrive a 0 tu n'as plus d'OS  ",fill="#6960EC", font=('Helvetica 15 bold', 20))
+        canfr.create_text(600, 500, text="10 questions 1 mauvaises réponse et 20 fichiers random seront supprimer et les questions seront en anglais",fill="#6960EC",font=('Helvetica 15 bold', 20))
+        buttongame = Button(frenchwindow, font=('Helvetica 15 bold',), text="Play", bg='black', fg='white', width=50,height=10,command=question1 )
         buttongamecanv = canfr.create_window(1300, 700,
                                                anchor="nw",
                                                window=buttongame)
@@ -87,7 +168,10 @@ def frenchrules():
 
 #anglish rules
 def angrules():
+    global minute
+    global second
     global boucle
+    global angwindow
     boucle = 2
     global window_ok
     window_ok.destroy()
@@ -97,17 +181,11 @@ def angrules():
         canvang.grid(row=2, column=3)
         img = ImageTk.PhotoImage(Image.open("sawback2.jpg"))  # PIL solution
         canvang.create_image(20, 20, anchor=NW, image=img)
-        canvang.create_text(500, 100, text="First there is a timer all 20 seconds = 1 random file deleted   ", fill=
+        canvang.create_text(800, 500, text="there is a countdown , this countdown started from u open this game ! 10 minutes make ur windows die so speed hahaha ! ", fill=
         "#6960EC", font=('Helvetica 15 bold',20))
-        canvang.create_text(500, 300, text="that file can be your cat or an essential windows file hope on ur luck  ", fill=
+        canvang.create_text(500, 700, text="There is 13 question and 1 bad answer = 20 random files deleted", fill=
         "#6960EC", font=('Helvetica 15 bold',20))
-        canvang.create_text(500, 500, text="20 minutes make ur windows die so speed hahaha ! ", fill=
-        "#6960EC", font=('Helvetica 15 bold',20))
-        canvang.create_text(500, 700, text="There is 20 question and 1 bad answer = 5 random files deleted", fill=
-        "#6960EC", font=('Helvetica 15 bold',20))
-        canvang.create_text(500, 900, text="from the moment you click on the rules the timer is started", fill=
-        "#6960EC", font=('Helvetica 15 bold', 20))
-        buttongame = Button(angwindow, font=('Helvetica 15 bold',), text="Play", bg='black', fg='white',width=50, height=10,)
+        buttongame = Button(angwindow, font=('Helvetica 15 bold',), text="Play", bg='black', fg='white',width=50, height=10,command = question1)
         buttongamecanv = canvang.create_window(1300, 700,
                                             anchor="nw",
                                             window=buttongame)
@@ -118,25 +196,36 @@ def angrules():
 
 
 
-while boucle == 0:
-    root = Tk()
-    canv = Canvas(root, width=1920, height=1080, )
-    canv.grid(row=2, column=3)
+def first():
+    while boucle == 0:
+        global img
+        global root2
+        root2 = Tk()
+        canv = Canvas(root2, width=1920, height=1080, )
+        canv.grid(row=2, column=3)
 
-    img = ImageTk.PhotoImage(Image.open("sawback1.jpg"))  # PIL solution
-    canv.create_image(20, 20, anchor=NW, image=img)
+        img = ImageTk.PhotoImage(Image.open("sawback1.jpg"))  # PIL solution
+        canv.create_image(20, 20, anchor=NW, image=img)
 #create the buttons
-    button1 = Button(root,font=('Helvetica 15 bold'), text="OK i want ! and i know the risk !", bg='black', fg='white', width=50 , height=10,command=gamerule)
+        button1 = Button(root2,font=('Helvetica 15 bold'), text="OK i want ! and i know the risk !", bg='black', fg='white', width=50 , height=10,command=gamerule)
 
-    button2 = Button(root, font=('Helvetica 15 bold') ,text="No please ! i dont want !" , bg='black', fg='white', width=50, height=10 , command=gamerule )
+        button2 = Button(root2, font=('Helvetica 15 bold') ,text="No please ! i dont want !" , bg='black', fg='white', width=50, height=10 , command=gamerule )
 #display buttons
-    button1_canvas = canv.create_window(300, 475,
+        button1_canvas = canv.create_window(300, 475,
                                            anchor="nw",
                                            window=button1)
 
-    button2_canvas = canv.create_window(1100, 475,
+        button2_canvas = canv.create_window(1100, 475,
                                            anchor="nw",
                                            window=button2)
-    canv.create_text(990, 250, text="Do you want play a game ?", fill=
-    "red", font=('Helvetica 15 bold'))
-    root.mainloop()
+        canv.create_text(990, 250, text="Do you want play a game ?", fill=
+        "red", font=('Helvetica 15 bold'))
+        root2.mainloop()
+
+
+
+
+if __name__ == '__main__':
+    Process(target=coontdown).start()
+    Process(target=first).start()
+    Process(target=sawsong).start()
